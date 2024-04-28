@@ -1,3 +1,4 @@
+package UserManagement;
 public class User {
     private String userName;
     private String userPass;
