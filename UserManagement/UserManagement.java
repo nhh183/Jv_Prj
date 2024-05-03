@@ -81,7 +81,7 @@ public class UserManagement{
     System.out.print("Enter email : ");
     email = input.nextLine();
     while(!isValid(email, 3)){
-      System.out.println("Email is invalid!\n");
+      System.out.println("Email is invalid!");
       System.out.print("Please enter new email : ");
       email = input.nextLine();
     }
@@ -143,6 +143,7 @@ public class UserManagement{
 
   // Check valid login
   static boolean Login(){
+    input = new Scanner(System.in);
     String user_name, pass;
     System.out.print("\033\143");
     System.out.format("-------------------LOGIN-------------------\n");
@@ -155,8 +156,7 @@ public class UserManagement{
       return false;
     }
     for(User user : UserList){
-      System.out.println(user.getUserName());
-      if(user.getUserName().equals(user_name) && user.getUserPass().equals(encryptPass(pass))){
+      if(user.getUserName().equals(user_name) && user.getPassword().equals(encryptPass(pass))){
         isInLogin = true;
         loginUser = user;
         return true;
@@ -193,7 +193,7 @@ public class UserManagement{
     System.out.print("Enter new email : ");
     new_email = input.nextLine();
     while(!isValid(new_email, 3) && !new_email.isBlank()){
-      System.out.println("Email is invalid!\n");
+      System.out.println("Email is invalid!");
       System.out.print("Please enter another new email : ");
       new_email = input.nextLine();
     }
@@ -306,7 +306,7 @@ public class UserManagement{
       }
       FileWriter writer = new FileWriter(pathName);
       for(User user : UserList){
-        writer.write(user.getUserName() + regex + user.getUserPass() + regex + user.getUserEmail() + regex +  user.getFirstName() + regex + user.getLastName() + regex + user.getPhoneNumber() + '\n');
+        writer.write(user.getUserName() + regex + user.getPassword() + regex + user.getUserEmail() + regex +  user.getFirstName() + regex + user.getLastName() + regex + user.getPhoneNumber() + '\n');
       }
       writer.close();
       System.out.println("Successfully wrote to the file.");
@@ -336,23 +336,16 @@ public class UserManagement{
       char key = scanner.next().charAt(0);
       switch (key) {
         case '1':
-          boolean gate1 = true;
-          do{
             System.out.print("\033\143");
             System.out.format("-------------------CREATE USER ACCOUNT-------------------\n");
             createUser();
             System.out.print("\033\143");
             System.out.println("Successfully create user account.");
-            System.out.print("Back to main menu? (y/n) : ");
-            back = input.next().charAt(0);
-            if(back == 'y' || back == 'Y'){
-              gate1 = false;
-            }
-          }while(gate1);
-          break;
+            System.out.print("Press any key to go back the main menu.... ");
+            scanner.nextLine();
+            scanner.nextLine();
+            break;
         case '2':
-          boolean gate2 = true;
-          do{
             String username;
             System.out.print("\033\143");
             System.out.format("-------------------CHECK EXIST USER-------------------\n");
@@ -363,16 +356,11 @@ public class UserManagement{
             }else{
               System.out.println("No User Found!");
             }
-            System.out.print("Back to main menu? (y/n) : ");
-            back = scanner.next().charAt(0);
-            if(back == 'y' || back == 'Y'){
-              gate2 = false;
-            }
-          }while(gate2);
-          break;
+            System.out.print("Press any key to go back the main menu.... ");
+            scanner.nextLine();
+            scanner.nextLine();
+            break;
         case '3':
-          boolean gate3 = true;
-          do{
             String args;
             System.out.print("\033\143");
             System.out.format("-------------------SEARCH USER INFORMATION BY NAME-------------------\n");
@@ -384,13 +372,10 @@ public class UserManagement{
             }else{
               System.out.println("Have no any user.");
             }
-            System.out.print("Back to main menu? (y/n) : ");
-            back = scanner.next().charAt(0);
-            if(back == 'y' || back == 'Y'){
-              gate3 = false;
-            }
-          }while(gate3);
-          break;
+            System.out.print("Press any key to go back the main menu.... ");
+            scanner.nextLine();
+            scanner.nextLine();
+            break;
         case '4':
           char subkey;
           boolean subgate = true;
@@ -401,7 +386,7 @@ public class UserManagement{
             System.out.format("  2. Delete User\n");
             System.out.format("  Others- Back To Main Menu\n");
             System.out.format("Enter a choice : ");
-            subkey = input.next().charAt(0);
+            subkey = scanner.next().charAt(0);
               switch(subkey) {
                 case '1':
                   if(Login()){
@@ -440,32 +425,22 @@ public class UserManagement{
           }while(subgate);
           break;
         case '5':
-          boolean gate5 = true;
-          do{
             System.out.print("\033\143");
             saveToFile("Usermanagement/user.dat", "/");
             save = true;
-            System.out.print("Back to main menu? (y/n) : ");
-            back = scanner.next().charAt(0);
-            if(back == 'y' || back == 'Y'){
-              gate5 = false;
-            }
-          }while(gate5);
-          break;
+            System.out.print("Press any key to go back the main menu.... ");
+            scanner.nextLine();
+            scanner.nextLine();
+            break;
         case '6':
-          boolean gate6 = true;
-          do{
           System.out.print("\033\143");
           System.out.format("---------------------------------------------USER LIST----------------------------------------------%n");
           printUserInformation(UserList);
-          System.out.print("Back to main menu? (y/n) : ");
-          back = scanner.next().charAt(0);
-          if(back == 'y' || back == 'Y'){
-            gate6 = false;
-          }
-          }while(gate6);
+          System.out.print("Press any key to go back the main menu.... ");
+          scanner.nextLine();
+          scanner.nextLine();
           break;
-         default:
+        default:
           scanner.close();
           gate = false;
           break;
@@ -475,5 +450,4 @@ public class UserManagement{
       saveToFile("Usermanagement/user.dat", "/");
     }
   }
-
 }
